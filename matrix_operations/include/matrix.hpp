@@ -11,7 +11,7 @@
 
 namespace mxlib {
 
-    template <typename T1>
+    //template <typename T1>
     class Matrix {
 
         friend Matrix operator+(const Matrix &lhs, const Matrix &rhs);
@@ -97,48 +97,47 @@ namespace mxlib {
             }
 
 
-            Matrix &operator+=(const Matrix &rhs) {
-                if(rows != rhs.rows || cols != rhs.cols) {
+            Matrix &operator+=(const Matrix &other) {
+                if(rows != other.rows || cols != other.cols) {
                     throw std::invalid_argument("Matrix dimensions don't match"); // might update it
                 }
 
                 for(size_t i = 0; i<matrix.size(); ++i) {
-                    matrix[i] += rhs[i];
+                    matrix[i] += other.matrix[i];
                 }
                 return *this;
             }
 
 
-            Matrix &operator-=(const Matrix &rhs) {
-                if(rows != rhs.rows || cols != rhs.cols) {
-                    throw std::invalid_argument("Matrix dimensions don't match");
+            Matrix &operator-=(const Matrix &other) {
+                if(rows != other.rows || cols != other.cols) {
+                    throw std::invalid_argument("Matrix dimensions don't match"); 
                 }
 
                 for(size_t i = 0; i<matrix.size(); ++i) {
-                    matrix[i] -= rhs[i];
+                    matrix[i] -= other.matrix[i];
                 }
                 return *this;
             }
 
 
-            Matrix &operator*=(const Matrix& rhs) {
-                if(cols != rhs.rows) {
+            Matrix &operator*=(const Matrix& other) {
+                if(cols != other.rows) {
                     throw std::invalid_argument("Matrix dimensions are incompatible for multiplication.");
                 }
 
-                std::vector<int> result(this->rows * rhs.cols, 0);
+                std::vector<int> result(rows * other.cols, 0);
                 for(size_t i = 0; i<rows; ++i) {
-                    for(size_t j = 0; j<rhs.cols; ++j) {
+                    for(size_t j = 0; j<other.cols; ++j) {
                         for(size_t k = 0; k<cols; ++k) {
-                            result[i * rhs.cols + j] += matrix[i * cols + k] * rhs.matrix[k * rhs.cols + j];
+                            result[i * other.cols + j] += matrix[i * cols + k] * other.matrix[k * other.cols + j];
                         }
                     }
                 }
-                matrix = result;
-                cols = rhs.cols;
+                matrix = std::move(result);
+                cols = other.cols;
                 return *this;
-            }       
-
+            }
 
             void transpose() {
                 if(rows == cols) {
@@ -154,7 +153,7 @@ namespace mxlib {
                             result[j * rows + i] = matrix[i * cols + j];
                         }
                     }
-                    matrix = result;
+                    matrix = std::move(result);
                     std::swap(rows, cols);
                 }
             }
@@ -172,22 +171,20 @@ namespace mxlib {
 
 
     Matrix operator+(const Matrix &lhs, const Matrix &rhs) {
-        Matrix result = lhs;
-        result += rhs;
-        return result;
+        Matrix result = lhs;  
+        result += rhs;        
+        return result;        
     }
-
 
     Matrix operator-(const Matrix &lhs, const Matrix &rhs) {
-        Matrix result = lhs;
-        result -= rhs;
-        return result;
-    }
-
+        Matrix result = lhs; 
+        result -= rhs;        
+        return result;       
+    }   
 
     Matrix operator*(const Matrix& lhs, const Matrix& rhs) {
-        Matrix result = lhs;
-        result *= rhs;
-        return result;
+        Matrix result = lhs;  
+        result *= rhs;       
+        return result;        
     }
 }

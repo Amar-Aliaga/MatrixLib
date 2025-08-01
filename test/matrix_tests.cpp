@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <sstream>
 #include "matrix.hpp"
+using namespace mxlib;
 
 // Test helper macros
 #define ASSERT_THROWS(expression, exception_type) \

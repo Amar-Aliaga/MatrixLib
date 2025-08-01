@@ -1,5 +1,6 @@
 #include <vector>
 #include "matrix.hpp"
+using namespace mxlib;
 
 int main() {
 
