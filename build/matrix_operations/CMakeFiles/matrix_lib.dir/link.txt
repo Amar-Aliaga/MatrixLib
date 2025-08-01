@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -Wl,--dependency-file=CMakeFiles/matrix_lib.dir/link.d -shared -Wl,-soname,libmatrix_lib.so -o libmatrix_lib.so CMakeFiles/matrix_lib.dir/src/matrix.cpp.o
