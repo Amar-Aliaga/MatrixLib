@@ -44,20 +44,6 @@ mat1.transpose();                              // In-place transpose
 | Transpose (in-place) | O(N²) | Square matrices only |
 | Transpose (copy) | O(M×N) | Rectangular matrices |
 
-## Parallelization Strategy
-
-**Current Implementation**: Single-threaded. The `<thread>` header is included but no parallel execution is implemented.
-
-**Parallelization Potential**: Matrix multiplication is the primary candidate for parallelization since each result element computation is independent. Proposed strategy:
-
-1. **Row-wise Distribution**: Assign each output row to a separate thread
-2. **Thread Pool**: Use up to M threads for M-row matrices with optimal resource management
-3. **Threshold-based**: Enable parallelization only for matrices above certain size thresholds
-
-**Performance Considerations**: 
-- **Memory Layout**: Contiguous storage provides excellent spatial locality
-- **In-place Operations**: Compound operators minimize memory allocations
-- **Trade-offs**: Parallelization would improve performance for large matrices at the cost of increased complexity
 
 ## Building
 ```bash
