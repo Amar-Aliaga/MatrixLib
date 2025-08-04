@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
+#include <thread>
 #include "matrix.hpp" 
 
 
@@ -155,6 +156,33 @@ void test_transpose() {
     std::cout << "  - Transpose passed." << std::endl;
 }
 
+void test_threaded_addition() {
+    std::cout << "Running threaded addition test..." << std::endl;
+
+    mxlib::Matrix<int> a(100, 100, 1);
+    mxlib::Matrix<int> b(100, 100, 2);
+    mxlib::Matrix<int> result1(100, 100);
+    mxlib::Matrix<int> result2(100, 100);
+
+    result1 = a + b;
+
+    std::thread t1([&]() {
+        for (size_t i = 0; i < result2.size() / 2; ++i)
+            result2[i] = a[i] + b[i];
+    });
+    std::thread t2([&]() {
+        for (size_t i = result2.size() / 2; i < result2.size(); ++i)
+            result2[i] = a[i] + b[i];
+    });
+    t1.join();
+    t2.join();
+
+    for (size_t i = 0; i < result1.size(); ++i) {
+        ASSERT_EQ(result1[i], result2[i]);
+    }
+
+    std::cout << "  - Threaded addition passed." << std::endl;
+}
 
 int main() {
     std::cout << "Starting all tests..." << std::endl;
@@ -166,6 +194,7 @@ int main() {
     test_subtraction();
     test_multiplication();
     test_transpose();
+    test_threaded_addition();
 
     std::cout << "All tests passed successfully!" << std::endl;
     
