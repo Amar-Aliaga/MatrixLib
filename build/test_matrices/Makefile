@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/CMakeFiles /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	cd /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/CMakeFiles /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/test_matrices//CMakeFiles/progress.marks
+	cd /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_matrices/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_matrices/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,57 +103,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_matrices/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_matrices/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named matrix_lib
+# Convenience name for target.
+test_matrices/CMakeFiles/matrix_tests.dir/rule:
+	cd /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_matrices/CMakeFiles/matrix_tests.dir/rule
+.PHONY : test_matrices/CMakeFiles/matrix_tests.dir/rule
 
-# Build rule for target.
-matrix_lib: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 matrix_lib
-.PHONY : matrix_lib
-
-# fast build rule for target.
-matrix_lib/fast:
-	$(MAKE) $(MAKESILENT) -f matrix_operations/CMakeFiles/matrix_lib.dir/build.make matrix_operations/CMakeFiles/matrix_lib.dir/build
-.PHONY : matrix_lib/fast
-
-#=============================================================================
-# Target rules for targets named wayland_secondProject
-
-# Build rule for target.
-wayland_secondProject: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 wayland_secondProject
-.PHONY : wayland_secondProject
-
-# fast build rule for target.
-wayland_secondProject/fast:
-	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/wayland_secondProject.dir/build.make app/CMakeFiles/wayland_secondProject.dir/build
-.PHONY : wayland_secondProject/fast
-
-#=============================================================================
-# Target rules for targets named matrix_tests
-
-# Build rule for target.
-matrix_tests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 matrix_tests
+# Convenience name for target.
+matrix_tests: test_matrices/CMakeFiles/matrix_tests.dir/rule
 .PHONY : matrix_tests
 
 # fast build rule for target.
 matrix_tests/fast:
-	$(MAKE) $(MAKESILENT) -f test_matrices/CMakeFiles/matrix_tests.dir/build.make test_matrices/CMakeFiles/matrix_tests.dir/build
+	cd /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build && $(MAKE) $(MAKESILENT) -f test_matrices/CMakeFiles/matrix_tests.dir/build.make test_matrices/CMakeFiles/matrix_tests.dir/build
 .PHONY : matrix_tests/fast
+
+matrix_tests.o: matrix_tests.cpp.o
+.PHONY : matrix_tests.o
+
+# target to build an object file
+matrix_tests.cpp.o:
+	cd /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build && $(MAKE) $(MAKESILENT) -f test_matrices/CMakeFiles/matrix_tests.dir/build.make test_matrices/CMakeFiles/matrix_tests.dir/matrix_tests.cpp.o
+.PHONY : matrix_tests.cpp.o
+
+matrix_tests.i: matrix_tests.cpp.i
+.PHONY : matrix_tests.i
+
+# target to preprocess a source file
+matrix_tests.cpp.i:
+	cd /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build && $(MAKE) $(MAKESILENT) -f test_matrices/CMakeFiles/matrix_tests.dir/build.make test_matrices/CMakeFiles/matrix_tests.dir/matrix_tests.cpp.i
+.PHONY : matrix_tests.cpp.i
+
+matrix_tests.s: matrix_tests.cpp.s
+.PHONY : matrix_tests.s
+
+# target to generate assembly for a file
+matrix_tests.cpp.s:
+	cd /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build && $(MAKE) $(MAKESILENT) -f test_matrices/CMakeFiles/matrix_tests.dir/build.make test_matrices/CMakeFiles/matrix_tests.dir/matrix_tests.cpp.s
+.PHONY : matrix_tests.cpp.s
 
 # Help Target
 help:
@@ -163,9 +162,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... matrix_lib"
 	@echo "... matrix_tests"
-	@echo "... wayland_secondProject"
+	@echo "... matrix_tests.o"
+	@echo "... matrix_tests.i"
+	@echo "... matrix_tests.s"
 .PHONY : help
 
 
@@ -177,6 +177,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

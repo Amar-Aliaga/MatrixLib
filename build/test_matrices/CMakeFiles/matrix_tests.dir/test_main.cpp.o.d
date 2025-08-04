@@ -1,5 +1,5 @@
-app/CMakeFiles/wayland_secondProject.dir/main.cpp.o: \
- /home/amar-aliaga/Desktop/wayland/wayland_secondProject/app/main.cpp \
+test_matrices/CMakeFiles/matrix_tests.dir/test_main.cpp.o: \
+ /home/amar-aliaga/Desktop/wayland/wayland_secondProject/test_matrices/test_main.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/13/vector \
  /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
@@ -58,7 +58,7 @@ app/CMakeFiles/wayland_secondProject.dir/main.cpp.o: \
  /usr/include/c++/13/bits/ranges_util.h \
  /usr/include/c++/13/bits/ranges_base.h \
  /usr/include/c++/13/bits/max_size_type.h /usr/include/c++/13/numbers \
- /home/amar-aliaga/Desktop/wayland/wayland_secondProject/matrix_operations/include/matrix.hpp \
+ /home/amar-aliaga/Desktop/wayland/wayland_secondProject/test_matrices/../matrix_operations/include/matrix.hpp \
  /usr/include/c++/13/utility /usr/include/c++/13/bits/stl_relops.h \
  /usr/include/c++/13/memory /usr/include/c++/13/bits/stl_tempbuf.h \
  /usr/include/c++/13/bits/stl_raw_storage_iter.h \
@@ -226,9 +226,4 @@ app/CMakeFiles/wayland_secondProject.dir/main.cpp.o: \
  /usr/include/c++/13/bits/atomic_timed_wait.h \
  /usr/include/c++/13/bits/this_thread_sleep.h \
  /usr/include/x86_64-linux-gnu/sys/time.h /usr/include/semaphore.h \
- /usr/include/x86_64-linux-gnu/bits/semaphore.h \
- /usr/include/c++/13/chrono /usr/include/c++/13/bits/chrono_io.h \
- /usr/include/c++/13/format /usr/include/c++/13/array \
- /usr/include/c++/13/charconv /usr/include/c++/13/optional \
- /usr/include/c++/13/bits/enable_special_members.h \
- /usr/include/c++/13/span /usr/include/c++/13/variant
+ /usr/include/x86_64-linux-gnu/bits/semaphore.h

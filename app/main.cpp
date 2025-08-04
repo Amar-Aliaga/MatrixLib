@@ -1,44 +1,22 @@
 #include <vector>
 #include "matrix.hpp"
+#include <chrono>
 using namespace mxlib;
 
 int main() {
 
-    std::vector<std::vector<int>> m {
-        {1,2,3},
-        {4,5,6},
-        {7,8,9}
-    };
-    std::vector<std::vector<int>> m1 {
-        {1,1,1},
-        {1,1,1},
-        {2,2,2}
-    };
+    Matrix one (10,10,10000000.3);
+    Matrix two (10,10,48110000.4);
 
-    Matrix mat ={ 
-                  {1,2,3}, 
-                  {4,5,6}
-                };
-    Matrix mati12 ={
-                  {3,4,2}, 
-                  {5,6,7}, 
-                  {7,8,1}
-                };
+    auto start = std::chrono::high_resolution_clock::now();
+    one += two;
+    auto end = std::chrono::high_resolution_clock::now();
+    
 
-    Matrix mat3 ={
-                  {1000,30000,400}, 
-                  {400,50000,6000}, 
-                  {6000,700,80000}
-                };
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    std::cout << "Execution time: " << duration.count() << " ms" << std::endl;
 
-    Matrix test (3,3,1);
-    Matrix test1(3,3,1);
-
-    test *= mati12;
-    test = test + test1;
-    //res.transpose();
-    std::cout << test;
-
+    std::cout << one;
 
     return 0;
 }

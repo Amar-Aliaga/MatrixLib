@@ -11,24 +11,41 @@
 
 namespace mxlib {
 
-    //template <typename T1>
+    template <typename T>
     class Matrix {
 
-        friend Matrix operator+(const Matrix &lhs, const Matrix &rhs);
-        friend Matrix operator-(const Matrix &lhs, const Matrix &rhs);
-        friend Matrix operator*(const Matrix& lhs, const Matrix& rhs);
+        template <typename U>
+        friend Matrix<U> operator+(const Matrix<U> &lhs, const Matrix<U> &rhs);
+        template <typename U>
+        friend Matrix<U> operator-(const Matrix<U> &lhs, const Matrix<U> &rhs);
+        template <typename U>
+        friend Matrix<U> operator*(const Matrix<U> &lhs, const Matrix<U> &rhs);
 
         public:
-            Matrix(size_t rows, size_t cols, int initial_value = 0) : rows(rows), cols(cols) {
-                if(rows == 0 || cols == 0) {
-                    throw std::invalid_argument("Rows or Columns are zero");
+            Matrix(size_t rows, size_t cols, const T &fill_value = T{}) 
+                : rows(rows), cols(cols) {
+                if (rows == 0 || cols == 0) {
+                    throw std::invalid_argument("Matrix dimensions must be positive");
                 }
+                matrix.assign(rows * cols, fill_value);
+            }
+            
 
-                matrix.resize(rows * cols, initial_value);
+            template <typename OtherT>
+            Matrix(const Matrix<OtherT>& other)
+                : rows(other.get_rows()), cols(other.get_cols()) {
+                if (rows == 0 || cols == 0) {
+                    throw std::invalid_argument("Matrix dimensions must be positive");
+                }
+                
+                matrix.reserve(rows * cols);
+                for (size_t i = 0; i < other.size(); ++i) {
+                    matrix.emplace_back(static_cast<T>(other[i]));
+                }
             }
 
 
-            Matrix(std::initializer_list<std::initializer_list<int>> list) {
+            Matrix(std::initializer_list<std::initializer_list<T>> list) {
                 if (list.size() == 0) {
                     throw std::invalid_argument("Empty initializer list");
                 }
@@ -53,19 +70,19 @@ namespace mxlib {
             }
 
 
-            friend std::ostream &operator<<(std::ostream &os, const Matrix &mat) {
+            friend std::ostream &operator<<(std::ostream &os, const Matrix<T> &mat) {
                 for(size_t i = 0; i<mat.size(); ++i) {
                     if(i % mat.cols == 0 && i != 0) {
                         os << std::endl;
                     }
-                    os << std::setw(4) << mat[i] << " "; // update later
+                    os << std::setw(mat.cols) << mat[i] << " "; // update later
                 }
                 os << std::endl;
                 return os;
             }
 
 
-            const int &operator[](size_t index) const {
+            const T &operator[](size_t index) const {
                 if(index >= matrix.size()) {
                     throw std::out_of_range("Index out of bounds");
                 }
@@ -73,7 +90,7 @@ namespace mxlib {
             }
 
 
-            int &operator[](size_t index) {
+            T &operator[](size_t index) {
                 if(index >= matrix.size()) {
                     throw std::out_of_range("Index out of bounds");
                 }
@@ -81,7 +98,7 @@ namespace mxlib {
             }
 
 
-            int &operator()(size_t row, size_t col) {
+            T &operator()(size_t row, size_t col) {
                 if (row >= rows || col >= cols) {
                     throw std::out_of_range("Matrix subscript out of bounds");
                 }
@@ -89,7 +106,7 @@ namespace mxlib {
             }
 
 
-            const int &operator()(size_t row, size_t col) const {
+            const T &operator()(size_t row, size_t col) const {
                 if (row >= rows || col >= cols) {
                     throw std::out_of_range("Matrix subscript out of bounds");
                 }
@@ -126,7 +143,7 @@ namespace mxlib {
                     throw std::invalid_argument("Matrix dimensions are incompatible for multiplication.");
                 }
 
-                std::vector<int> result(rows * other.cols, 0);
+                std::vector<T> result(rows * other.cols, T{});
                 for(size_t i = 0; i<rows; ++i) {
                     for(size_t j = 0; j<other.cols; ++j) {
                         for(size_t k = 0; k<cols; ++k) {
@@ -147,7 +164,7 @@ namespace mxlib {
                         }
                     }
                 }else {
-                    std::vector<int> result(rows * cols, 0);
+                    std::vector<T> result(rows * cols, T{});
                     for(size_t i = 0; i<rows; ++i) {
                         for(size_t j = 0; j<cols; ++j) {
                             result[j * rows + i] = matrix[i * cols + j];
@@ -159,32 +176,52 @@ namespace mxlib {
             }
 
 
-            size_t get_rows() const { return rows; }
-            size_t get_cols() const { return cols; }
-            size_t size() const { return cols * rows; }
-            bool empty() const { return rows == 0 || cols == 0; }
+            size_t get_rows() const noexcept { return rows; }
+            size_t get_cols() const noexcept { return cols; }
+            size_t size() const noexcept { return cols * rows; }
+            bool empty() const noexcept { return rows == 0 || cols == 0; }
+            std::vector<T>::iterator begin() noexcept { return matrix.begin(); }
+            std::vector<T>::iterator end() noexcept { return matrix.end(); }
+            std::vector<T>::iterator rbegin() noexcept { return matrix.rbegin(); }
+            std::vector<T>::iterator rend() noexcept { return matrix.rend(); }
 
         private:
-        std::vector<int> matrix;
+        std::vector<T> matrix;
         size_t cols, rows;
     };
 
 
-    Matrix operator+(const Matrix &lhs, const Matrix &rhs) {
-        Matrix result = lhs;  
+    template <typename U>
+    Matrix<U> operator+(const Matrix<U> &lhs, const Matrix<U> &rhs) {
+        Matrix<U> result = lhs;  
         result += rhs;        
         return result;        
     }
 
-    Matrix operator-(const Matrix &lhs, const Matrix &rhs) {
-        Matrix result = lhs; 
+
+    template <typename U>
+    Matrix<U> operator-(const Matrix<U> &lhs, const Matrix<U> &rhs) {
+        Matrix<U> result = lhs; 
         result -= rhs;        
         return result;       
     }   
 
-    Matrix operator*(const Matrix& lhs, const Matrix& rhs) {
-        Matrix result = lhs;  
+
+    template <typename U>
+    Matrix<U> operator*(const Matrix<U> &lhs, const Matrix<U> &rhs) {
+        Matrix<U> result = lhs;  
         result *= rhs;       
         return result;        
     }
+
+
+    template <typename T>
+    Matrix(size_t, size_t, T) -> Matrix<T>;
+
+
+    template<typename T>
+    Matrix(std::initializer_list<std::initializer_list<T>>) -> Matrix<T>;
+
+    Matrix(size_t, size_t) -> Matrix<double>;
+
 }

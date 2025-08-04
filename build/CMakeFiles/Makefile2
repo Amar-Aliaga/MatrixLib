@@ -65,21 +65,25 @@ CMAKE_BINARY_DIR = /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build
 # The main recursive "all" target.
 all: matrix_operations/all
 all: app/all
+all: test_matrices/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: matrix_operations/codegen
 codegen: app/codegen
+codegen: test_matrices/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
 preinstall: matrix_operations/preinstall
 preinstall: app/preinstall
+preinstall: test_matrices/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: matrix_operations/clean
 clean: app/clean
+clean: test_matrices/clean
 .PHONY : clean
 
 #=============================================================================
@@ -121,6 +125,25 @@ matrix_operations/clean: matrix_operations/CMakeFiles/matrix_lib.dir/clean
 .PHONY : matrix_operations/clean
 
 #=============================================================================
+# Directory level rules for directory test_matrices
+
+# Recursive "all" directory target.
+test_matrices/all: test_matrices/CMakeFiles/matrix_tests.dir/all
+.PHONY : test_matrices/all
+
+# Recursive "codegen" directory target.
+test_matrices/codegen: test_matrices/CMakeFiles/matrix_tests.dir/codegen
+.PHONY : test_matrices/codegen
+
+# Recursive "preinstall" directory target.
+test_matrices/preinstall:
+.PHONY : test_matrices/preinstall
+
+# Recursive "clean" directory target.
+test_matrices/clean: test_matrices/CMakeFiles/matrix_tests.dir/clean
+.PHONY : test_matrices/clean
+
+#=============================================================================
 # Target rules for target matrix_operations/CMakeFiles/matrix_lib.dir
 
 # All Build rule for target.
@@ -159,7 +182,7 @@ matrix_operations/CMakeFiles/matrix_lib.dir/clean:
 app/CMakeFiles/wayland_secondProject.dir/all: matrix_operations/CMakeFiles/matrix_lib.dir/all
 	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/wayland_secondProject.dir/build.make app/CMakeFiles/wayland_secondProject.dir/depend
 	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/wayland_secondProject.dir/build.make app/CMakeFiles/wayland_secondProject.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/CMakeFiles --progress-num=3,4 "Built target wayland_secondProject"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/CMakeFiles --progress-num=5,6 "Built target wayland_secondProject"
 .PHONY : app/CMakeFiles/wayland_secondProject.dir/all
 
 # Build rule for subdir invocation for target.
@@ -176,13 +199,45 @@ wayland_secondProject: app/CMakeFiles/wayland_secondProject.dir/rule
 # codegen rule for target.
 app/CMakeFiles/wayland_secondProject.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/wayland_secondProject.dir/build.make app/CMakeFiles/wayland_secondProject.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/CMakeFiles --progress-num=3,4 "Finished codegen for target wayland_secondProject"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/CMakeFiles --progress-num=5,6 "Finished codegen for target wayland_secondProject"
 .PHONY : app/CMakeFiles/wayland_secondProject.dir/codegen
 
 # clean rule for target.
 app/CMakeFiles/wayland_secondProject.dir/clean:
 	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/wayland_secondProject.dir/build.make app/CMakeFiles/wayland_secondProject.dir/clean
 .PHONY : app/CMakeFiles/wayland_secondProject.dir/clean
+
+#=============================================================================
+# Target rules for target test_matrices/CMakeFiles/matrix_tests.dir
+
+# All Build rule for target.
+test_matrices/CMakeFiles/matrix_tests.dir/all: matrix_operations/CMakeFiles/matrix_lib.dir/all
+	$(MAKE) $(MAKESILENT) -f test_matrices/CMakeFiles/matrix_tests.dir/build.make test_matrices/CMakeFiles/matrix_tests.dir/depend
+	$(MAKE) $(MAKESILENT) -f test_matrices/CMakeFiles/matrix_tests.dir/build.make test_matrices/CMakeFiles/matrix_tests.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/CMakeFiles --progress-num=3,4 "Built target matrix_tests"
+.PHONY : test_matrices/CMakeFiles/matrix_tests.dir/all
+
+# Build rule for subdir invocation for target.
+test_matrices/CMakeFiles/matrix_tests.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_matrices/CMakeFiles/matrix_tests.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/CMakeFiles 0
+.PHONY : test_matrices/CMakeFiles/matrix_tests.dir/rule
+
+# Convenience name for target.
+matrix_tests: test_matrices/CMakeFiles/matrix_tests.dir/rule
+.PHONY : matrix_tests
+
+# codegen rule for target.
+test_matrices/CMakeFiles/matrix_tests.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f test_matrices/CMakeFiles/matrix_tests.dir/build.make test_matrices/CMakeFiles/matrix_tests.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/CMakeFiles --progress-num=3,4 "Finished codegen for target matrix_tests"
+.PHONY : test_matrices/CMakeFiles/matrix_tests.dir/codegen
+
+# clean rule for target.
+test_matrices/CMakeFiles/matrix_tests.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test_matrices/CMakeFiles/matrix_tests.dir/build.make test_matrices/CMakeFiles/matrix_tests.dir/clean
+.PHONY : test_matrices/CMakeFiles/matrix_tests.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

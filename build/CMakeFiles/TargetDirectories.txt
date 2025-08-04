@@ -6,3 +6,6 @@
 /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/app/CMakeFiles/wayland_secondProject.dir
 /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/app/CMakeFiles/edit_cache.dir
 /home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/app/CMakeFiles/rebuild_cache.dir
+/home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/test_matrices/CMakeFiles/matrix_tests.dir
+/home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/test_matrices/CMakeFiles/edit_cache.dir
+/home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/test_matrices/CMakeFiles/rebuild_cache.dir
