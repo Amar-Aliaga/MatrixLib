@@ -14,12 +14,16 @@ namespace mxlib {
     template <typename T>
     class Matrix {
 
+
         template <typename U>
         friend Matrix<U> operator+(const Matrix<U> &lhs, const Matrix<U> &rhs);
+
         template <typename U>
         friend Matrix<U> operator-(const Matrix<U> &lhs, const Matrix<U> &rhs);
+
         template <typename U>
         friend Matrix<U> operator*(const Matrix<U> &lhs, const Matrix<U> &rhs);
+
 
         public:
             Matrix(size_t rows, size_t cols, const T &fill_value = T{}) 
@@ -32,8 +36,7 @@ namespace mxlib {
             
 
             template <typename OtherT>
-            Matrix(const Matrix<OtherT>& other)
-                : rows(other.get_rows()), cols(other.get_cols()) {
+            Matrix(const Matrix<OtherT> &other) : rows(other.get_rows()), cols(other.get_cols()) {
                 if (rows == 0 || cols == 0) {
                     throw std::invalid_argument("Matrix dimensions must be positive");
                 }
@@ -71,13 +74,20 @@ namespace mxlib {
 
 
             friend std::ostream &operator<<(std::ostream &os, const Matrix<T> &mat) {
+                size_t max_width = 0;
                 for(size_t i = 0; i<mat.size(); ++i) {
-                    if(i % mat.cols == 0 && i != 0) {
-                        os << std::endl;
-                    }
-                    os << std::setw(mat.cols) << mat[i] << " "; // update later
+                    std::ostringstream oss;
+                    oss << mat.matrix[i];
+                    max_width = std::max(max_width, oss.str().length());
                 }
-                os << std::endl;
+                max_width = std::max<size_t>(max_width, 4);
+
+                for (size_t i = 0; i < mat.get_rows(); ++i) {
+                    for (size_t j = 0; j < mat.get_cols(); ++j) {
+                        os << std::setw(10) << mat(i, j) << " ";
+                    }
+                    os << '\n';
+                }
                 return os;
             }
 
@@ -178,12 +188,18 @@ namespace mxlib {
 
             size_t get_rows() const noexcept { return rows; }
             size_t get_cols() const noexcept { return cols; }
-            size_t size() const noexcept { return cols * rows; }
-            bool empty() const noexcept { return rows == 0 || cols == 0; }
-            std::vector<T>::iterator begin() noexcept { return matrix.begin(); }
-            std::vector<T>::iterator end() noexcept { return matrix.end(); }
-            std::vector<T>::iterator rbegin() noexcept { return matrix.rbegin(); }
-            std::vector<T>::iterator rend() noexcept { return matrix.rend(); }
+            size_t     size() const noexcept { return cols * rows; }
+            bool      empty() const noexcept { return rows == 0 || cols == 0; }
+
+            std::vector<T>::iterator  begin()  noexcept { return matrix.begin();  }
+            std::vector<T>::iterator    end()  noexcept { return matrix.end();    }
+            std::vector<T>::iterator rbegin()  noexcept { return matrix.rbegin(); }
+            std::vector<T>::iterator   rend()  noexcept { return matrix.rend();   }
+            
+            std::vector<T>::const_iterator  cbegin()   const noexcept { return matrix.cbegin();  }
+            std::vector<T>::const_iterator    cend()   const noexcept { return matrix.cend();    }
+            std::vector<T>::const_iterator crbegin()   const noexcept { return matrix.crbegin(); }
+            std::vector<T>::const_iterator   crend()   const noexcept { return matrix.crend();   }
 
         private:
         std::vector<T> matrix;
@@ -221,6 +237,7 @@ namespace mxlib {
 
     template<typename T>
     Matrix(std::initializer_list<std::initializer_list<T>>) -> Matrix<T>;
+
 
     Matrix(size_t, size_t) -> Matrix<double>;
 
