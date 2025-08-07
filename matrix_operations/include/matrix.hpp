@@ -164,6 +164,7 @@ namespace mxlib {
                 return *this;
             }
 
+            
             void transpose() {
                 if(rows == cols) {
                     for(size_t i = 0; i<rows; ++i) {
@@ -189,15 +190,15 @@ namespace mxlib {
             size_t     size() const noexcept { return cols * rows; }
             bool      empty() const noexcept { return rows == 0 || cols == 0; }
 
-            std::vector<T>::iterator  begin()  noexcept { return matrix.begin();  }
-            std::vector<T>::iterator    end()  noexcept { return matrix.end();    }
-            std::vector<T>::iterator rbegin()  noexcept { return matrix.rbegin(); }
-            std::vector<T>::iterator   rend()  noexcept { return matrix.rend();   }
+            std::vector<T>::iterator  begin() noexcept { return matrix.begin();  }
+            std::vector<T>::iterator    end() noexcept { return matrix.end();    }
+            std::vector<T>::iterator rbegin() noexcept { return matrix.rbegin(); }
+            std::vector<T>::iterator   rend() noexcept { return matrix.rend();   }
 
-            std::vector<T>::const_iterator  cbegin()   const noexcept { return matrix.cbegin();  }
-            std::vector<T>::const_iterator    cend()   const noexcept { return matrix.cend();    }
-            std::vector<T>::const_iterator crbegin()   const noexcept { return matrix.crbegin(); }
-            std::vector<T>::const_iterator   crend()   const noexcept { return matrix.crend();   }
+            std::vector<T>::const_iterator          begin() const noexcept { return matrix.begin();  } 
+            std::vector<T>::const_iterator            end() const noexcept { return matrix.end();    }
+            std::vector<T>::const_reverse_iterator rbegin() const noexcept { return matrix.rbegin(); }
+            std::vector<T>::const_reverse_iterator   rend() const noexcept { return matrix.rend();   }
 
         private:
         std::vector<T> matrix;
