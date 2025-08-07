@@ -1,13 +1,13 @@
 #pragma once
 #include <vector>
 #include <utility>
-#include <memory>
 #include <iostream>
 #include <initializer_list>
 #include <stdexcept>
 #include <iomanip>
 #include <algorithm>
-#include <thread>  
+#include <sstream>
+
 
 namespace mxlib {
 
@@ -16,13 +16,13 @@ namespace mxlib {
 
 
         template <typename U>
-        friend Matrix<U> operator+(const Matrix<U> &lhs, const Matrix<U> &rhs);
+        friend Matrix<U> operator+(Matrix<U> lhs, const Matrix<U> &rhs);
 
         template <typename U>
-        friend Matrix<U> operator-(const Matrix<U> &lhs, const Matrix<U> &rhs);
+        friend Matrix<U> operator-(Matrix<U> lhs, const Matrix<U> &rhs);
 
         template <typename U>
-        friend Matrix<U> operator*(const Matrix<U> &lhs, const Matrix<U> &rhs);
+        friend Matrix<U> operator*(Matrix<U> lhs, const Matrix<U> &rhs);
 
 
         public:
@@ -33,17 +33,15 @@ namespace mxlib {
                 }
                 matrix.assign(rows * cols, fill_value);
             }
-            
+
+
+            Matrix() noexcept : rows(0), cols(0), matrix{} {}
+
 
             template <typename OtherT>
-            Matrix(const Matrix<OtherT> &other) : rows(other.get_rows()), cols(other.get_cols()) {
-                if (rows == 0 || cols == 0) {
-                    throw std::invalid_argument("Matrix dimensions must be positive");
-                }
-                
-                matrix.reserve(rows * cols);
+            Matrix(const Matrix<OtherT> &other) : Matrix(other.get_rows(), other.get_cols()) {
                 for (size_t i = 0; i < other.size(); ++i) {
-                    matrix.emplace_back(static_cast<T>(other[i]));
+                    matrix[i] = static_cast<T>(other[i]); 
                 }
             }
 
@@ -195,7 +193,7 @@ namespace mxlib {
             std::vector<T>::iterator    end()  noexcept { return matrix.end();    }
             std::vector<T>::iterator rbegin()  noexcept { return matrix.rbegin(); }
             std::vector<T>::iterator   rend()  noexcept { return matrix.rend();   }
-            
+
             std::vector<T>::const_iterator  cbegin()   const noexcept { return matrix.cbegin();  }
             std::vector<T>::const_iterator    cend()   const noexcept { return matrix.cend();    }
             std::vector<T>::const_iterator crbegin()   const noexcept { return matrix.crbegin(); }
@@ -208,26 +206,23 @@ namespace mxlib {
 
 
     template <typename U>
-    Matrix<U> operator+(const Matrix<U> &lhs, const Matrix<U> &rhs) {
-        Matrix<U> result = lhs;  
-        result += rhs;        
-        return result;        
+    Matrix<U> operator+(Matrix<U> lhs, const Matrix<U> &rhs) {  
+        lhs += rhs;        
+        return lhs;        
     }
 
 
     template <typename U>
-    Matrix<U> operator-(const Matrix<U> &lhs, const Matrix<U> &rhs) {
-        Matrix<U> result = lhs; 
-        result -= rhs;        
-        return result;       
+    Matrix<U> operator-(Matrix<U> lhs, const Matrix<U> &rhs) {
+        lhs -= rhs;
+        return lhs;      
     }   
 
 
     template <typename U>
-    Matrix<U> operator*(const Matrix<U> &lhs, const Matrix<U> &rhs) {
-        Matrix<U> result = lhs;  
-        result *= rhs;       
-        return result;        
+    Matrix<U> operator*(Matrix<U> lhs, const Matrix<U> &rhs) {
+        lhs *= rhs;
+        return lhs;       
     }
 
 
@@ -241,4 +236,7 @@ namespace mxlib {
 
     Matrix(size_t, size_t) -> Matrix<double>;
 
-}
+
+    Matrix() -> Matrix<double>;
+
+} 
