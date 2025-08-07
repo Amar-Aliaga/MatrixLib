@@ -78,11 +78,11 @@ namespace mxlib {
                     oss << mat.matrix[i];
                     max_width = std::max(max_width, oss.str().length());
                 }
-                max_width = std::max<size_t>(max_width, 4);
+                max_width = std::max<size_t>(max_width, 3);
 
                 for (size_t i = 0; i < mat.get_rows(); ++i) {
                     for (size_t j = 0; j < mat.get_cols(); ++j) {
-                        os << std::setw(10) << mat(i, j) << " ";
+                        os << std::setw(max_width) << mat(i, j) << " ";
                     }
                     os << '\n';
                 }
@@ -164,7 +164,7 @@ namespace mxlib {
                 return *this;
             }
 
-            
+
             void transpose() {
                 if(rows == cols) {
                     for(size_t i = 0; i<rows; ++i) {
@@ -200,9 +200,10 @@ namespace mxlib {
             std::vector<T>::const_reverse_iterator rbegin() const noexcept { return matrix.rbegin(); }
             std::vector<T>::const_reverse_iterator   rend() const noexcept { return matrix.rend();   }
 
+
         private:
-        std::vector<T> matrix;
-        size_t cols, rows;
+            std::vector<T> matrix;
+            size_t cols, rows;
     };
 
 
