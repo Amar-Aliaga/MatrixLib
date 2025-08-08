@@ -207,6 +207,49 @@ namespace mxlib {
     };
 
 
+    // template <typename U>
+    // Matrix<U> operator+(Matrix<U> lhs, const Matrix<U>& rhs) {
+    //     if (lhs.get_rows() != rhs.get_rows() || lhs.get_cols() != rhs.get_cols()) {
+    //         throw std::invalid_argument("Matrix dimensions do not match for addition.");
+    //     }
+
+    //     size_t total_elements = lhs.size();
+    //     if (total_elements == 0) {
+    //         return lhs; // Return an empty matrix if dimensions are 0
+    //     }
+
+    //     Matrix<U> result(lhs.get_rows(), lhs.get_cols());
+
+    //     const size_t num_threads = std::thread::hardware_concurrency();
+    //     std::vector<std::thread> threads;
+
+    //     auto worker = [&](size_t start_index, size_t end_index) {
+    //         for (size_t i = start_index; i < end_index; ++i) {
+    //             result[i] = lhs[i] + rhs[i];
+    //         }
+    //     };
+
+    //     size_t elements_per_thread = total_elements / num_threads;
+
+    //     for (size_t t = 0; t < num_threads; ++t) {
+    //         size_t start_index = t * elements_per_thread;
+    //         size_t end_index = (t == num_threads - 1) ? total_elements : start_index + elements_per_thread;
+            
+    //         if (start_index < end_index) {
+    //             threads.emplace_back(worker, start_index, end_index);
+    //         }
+    //     }
+
+    //     for (auto& thread : threads) {
+    //         if (thread.joinable()) {
+    //             thread.join();
+    //         }
+    //     }
+
+    //     return result;
+    // }
+
+
     template <typename U>
     Matrix<U> operator+(Matrix<U> lhs, const Matrix<U> &rhs) {  
         lhs += rhs;        

@@ -81,6 +81,7 @@
         "typeindex": "cpp",
         "__bit_reference": "cpp",
         "__locale": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "any": "cpp"
     }
 }

@@ -2,8 +2,6 @@
 #include <vector>
 #include <chrono>
 #include <thread>
-#include <mutex>
-
 
 
 int main() {
@@ -15,13 +13,18 @@ int main() {
     mxlib::Matrix result  (5000, 5000);
     mxlib::Matrix result1 (5000, 5000);
     mxlib::Matrix result2 (4000, 4000);
+    mxlib::Matrix test1   (3,3,5);
+    mxlib::Matrix test2   (3,3,3);
+    
+    std::cout << "The number of threads in this machine is: " << std::thread::hardware_concurrency() << std::endl;
 
+    std::cout << test2;
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    std::thread t1([&]() { result  = one + two;   });
-    std::thread t2([&]() { result1 = one + three; });
-    std::thread t3([&]() { result2 = four + four; });
+    std::thread t1([&]() { result  = one  + two;   });
+    std::thread t2([&]() { result1 = one  + three; });
+    std::thread t3([&]() { result2 = four + four;  });
 
     t1.join();
     t2.join();
@@ -32,10 +35,6 @@ int main() {
 
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
     std::cout << "Execution time: " << duration.count() << " ms" << std::endl;
-
-
-    std::cout <<  result;
-    std::cout << result1;
 
 
     return 0;
