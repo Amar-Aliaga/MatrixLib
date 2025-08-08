@@ -1,1 +1,0 @@
-/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/wayland_secondProject.dir/link.d CMakeFiles/wayland_secondProject.dir/main.cpp.o -o wayland_secondProject  -Wl,-rpath,/home/amar-aliaga/Desktop/wayland/wayland_secondProject/build/matrix_operations ../matrix_operations/libmatrix_lib.so
