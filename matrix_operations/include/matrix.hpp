@@ -47,7 +47,7 @@ namespace mxlib {
 
 
             Matrix(std::initializer_list<std::initializer_list<T>> list) {
-                if (list.empty()) {
+                if (list.size() == 0) {
                     throw std::invalid_argument("Empty initializer list");
                 }
         
