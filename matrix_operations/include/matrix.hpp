@@ -47,7 +47,7 @@ namespace mxlib {
 
 
             Matrix(std::initializer_list<std::initializer_list<T>> list) {
-                if (list.size() == 0) {
+                if (list.empty()) {
                     throw std::invalid_argument("Empty initializer list");
                 }
         
@@ -190,10 +190,10 @@ namespace mxlib {
             size_t     size() const noexcept { return cols * rows; }
             bool      empty() const noexcept { return rows == 0 || cols == 0; }
 
-            std::vector<T>::iterator  begin() noexcept { return matrix.begin();  }
-            std::vector<T>::iterator    end() noexcept { return matrix.end();    }
-            std::vector<T>::iterator rbegin() noexcept { return matrix.rbegin(); }
-            std::vector<T>::iterator   rend() noexcept { return matrix.rend();   }
+            std::vector<T>::iterator          begin() noexcept { return matrix.begin();  }
+            std::vector<T>::iterator            end() noexcept { return matrix.end();    }
+            std::vector<T>::reverse_iterator rbegin() noexcept { return matrix.rbegin(); }
+            std::vector<T>::reverse_iterator   rend() noexcept { return matrix.rend();   }
 
             std::vector<T>::const_iterator          begin() const noexcept { return matrix.begin();  } 
             std::vector<T>::const_iterator            end() const noexcept { return matrix.end();    }
@@ -203,7 +203,7 @@ namespace mxlib {
 
         private:
             std::vector<T> matrix;
-            size_t cols, rows;
+            size_t rows, cols;
     };
 
 
